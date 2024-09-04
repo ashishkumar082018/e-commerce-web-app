@@ -1,11 +1,10 @@
 import React from 'react';
-import ProductList from './components/ProductList';
+import Layout from './components/Layout';
 
 function App() {
   return (
     <div className="App">
-      <h1>Product List</h1>
-      <ProductList />
+      <Layout />
     </div>
   );
 }

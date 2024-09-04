@@ -1,4 +1,5 @@
 import React from 'react';
+import { Card, Row, Col, Container } from 'react-bootstrap';
 
 const productsArr = [
     {
@@ -25,17 +26,21 @@ const productsArr = [
 
 const ProductList = () => {
     return (
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', padding: '20px' }}>
-            {productsArr.map((product, index) => (
-                <div key={index} style={{ border: '1px solid #ddd', borderRadius: '8px', overflow: 'hidden', width: '200px' }}>
-                    <img src={product.imageUrl} alt={product.title} style={{ width: '100%', height: 'auto' }} />
-                    <div style={{ padding: '10px' }}>
-                        <h3 style={{ fontSize: '16px', margin: '0 0 10px' }}>{product.title}</h3>
-                        <p style={{ margin: '0', fontWeight: 'bold' }}>${product.price}</p>
-                    </div>
-                </div>
-            ))}
-        </div>
+        <Container className="py-4">
+            <Row className="g-4">
+                {productsArr.map((product, index) => (
+                    <Col key={index} xs={12} sm={6} md={4} lg={3}>
+                        <Card>
+                            <Card.Img variant="top" src={product.imageUrl} alt={product.title} />
+                            <Card.Body>
+                                <Card.Title>{product.title}</Card.Title>
+                                <Card.Text className="fw-bold">${product.price}</Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                ))}
+            </Row>
+        </Container>
     );
 };
 
