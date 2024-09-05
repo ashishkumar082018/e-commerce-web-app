@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 import Cart from './Cart';
+import CartIcon from './CartIcon';
 
 const NavigationBar = () => {
     const [showCart, setShowCart] = useState(false);
 
+    // Handlers for opening and closing the cart modal
     const handleCartOpen = () => setShowCart(true);
-    const handleCartClose = () => setShowCart(false)
+    const handleCartClose = () => setShowCart(false);
+
     return (
         <Navbar bg="dark" variant="dark" expand="lg">
             <Container>
@@ -18,7 +21,8 @@ const NavigationBar = () => {
                         <Nav.Link href="#store">STORE</Nav.Link>
                         <Nav.Link href="#about">ABOUT</Nav.Link>
                     </Nav>
-                    <Button variant="outline-info" onClick={handleCartOpen}>Cart</Button>
+                    <Button variant="outline-info" onClick={handleCartOpen} style={{ position: 'relative' }}>
+                        <CartIcon /> {/*Cart*/} </Button>
                     <Cart show={showCart} handleClose={handleCartClose} />
                 </Navbar.Collapse>
             </Container>

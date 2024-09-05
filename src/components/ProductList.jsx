@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, Row, Col, Container } from 'react-bootstrap';
+import { Card, Row, Col, Container, Button } from 'react-bootstrap';
+import { useCart } from '../context/CartContext'; // Import the cart context
 
 const productsArr = [
     {
@@ -25,6 +26,8 @@ const productsArr = [
 ];
 
 const ProductList = () => {
+    const { addToCart } = useCart(); // Destructure addToCart from useCart
+
     return (
         <Container className="py-4">
             <Row className="g-4">
@@ -35,6 +38,9 @@ const ProductList = () => {
                             <Card.Body>
                                 <Card.Title>{product.title}</Card.Title>
                                 <Card.Text className="fw-bold">${product.price}</Card.Text>
+                                <Button variant="primary"
+                                    onClick={() => addToCart(product)} // Add to Cart onClick handler
+                                > Add to Cart </Button>
                             </Card.Body>
                         </Card>
                     </Col>

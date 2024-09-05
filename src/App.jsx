@@ -1,11 +1,14 @@
 import React from 'react';
 import Layout from './components/Layout';
+import { CartProvider } from './context/CartContext';
 
 function App() {
   return (
-    <div className="App">
-      <Layout />
-    </div>
+    <CartProvider>
+      <div className="App">
+        <Layout />
+      </div>
+    </CartProvider>
   );
 }
 
