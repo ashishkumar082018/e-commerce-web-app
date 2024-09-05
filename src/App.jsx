@@ -1,13 +1,29 @@
 import React from 'react';
-import Layout from './components/Layout';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Layout from './components/Layout';
+import About from './components/pages/About';
+import Home from './components/pages/Home';
+import Store from './components/pages/Store';
 
 function App() {
   return (
     <CartProvider>
-      <div className="App">
-        <Layout />
-      </div>
+      <Router>
+        <div className="App">
+          <ToastContainer />
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Store />} />
+              <Route path="home" element={<Home />} />
+              <Route path="about" element={<About />} />
+              <Route path="store" element={<Store />} />
+            </Route>
+          </Routes>
+        </div>
+      </Router>
     </CartProvider>
   );
 }
