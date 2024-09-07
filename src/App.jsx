@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, lazy, Suspense, } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import { ToastContainer } from 'react-toastify';
@@ -11,6 +11,8 @@ import Contact from './components/pages/Contact';
 import ProductDetail from './components/pages/ProductDetail';
 import Login from './components/pages/Login';
 import AuthContext from './context/AuthContext';
+
+const ProductList = lazy(() => import('./components/ProductList'));
 
 const products = [
   {
@@ -91,7 +93,9 @@ function App() {
             <Route path="home" element={<Home />} />
             <Route path="about" element={<About />} />
             <Route path="login" element={!isLoggedIn ? <Login /> : <Navigate to="/" />} />
-            <Route path="store" element={<Store products={products} />} />
+            <Route path="store" element={
+              <Suspense fallback={<div>Loading Product List...</div>}>
+                {isLoggedIn ? <ProductList products={products} /> : <Navigate to="/login" />} </Suspense>} />
             <Route path="contact" element={<Contact />} />
             <Route path="/store/:productId" element={isLoggedIn ? <ProductDetail products={products} /> : <Navigate to="/login" />} />
           </Route>
