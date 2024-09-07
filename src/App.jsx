@@ -9,6 +9,8 @@ import Home from './components/pages/Home';
 import Store from './components/pages/Store';
 import Contact from './components/pages/Contact';
 import ProductDetail from './components/pages/ProductDetail';
+import Login from './components/pages/Login';
+import { AuthContextProvider } from './context/AuthContext';
 
 const products = [
   {
@@ -80,19 +82,22 @@ function App() {
   return (
     <CartProvider>
       <Router>
-        <div className="App">
-          <ToastContainer />
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Store products={products} />} />
-              <Route path="home" element={<Home />} />
-              <Route path="about" element={<About />} />
-              <Route path="store" element={<Store products={products} />} />
-              <Route path="contact" element={<Contact />} />
-              <Route path="/store/:productId" element={<ProductDetail products={products} />} />
-            </Route>
-          </Routes>
-        </div>
+        <AuthContextProvider>
+          <div className="App">
+            <ToastContainer />
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Store products={products} />} />
+                <Route path="home" element={<Home />} />
+                <Route path="about" element={<About />} />
+                <Route path="login" element={<Login />} />
+                <Route path="store" element={<Store products={products} />} />
+                <Route path="contact" element={<Contact />} />
+                <Route path="/store/:productId" element={<ProductDetail products={products} />} />
+              </Route>
+            </Routes>
+          </div>
+        </AuthContextProvider>
       </Router>
     </CartProvider>
   );

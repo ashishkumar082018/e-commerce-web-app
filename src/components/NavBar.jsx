@@ -20,6 +20,7 @@ const NavBar = () => {
                         <Nav.Link as={NavLink} to="/home" end>Home</Nav.Link>
                         <Nav.Link as={NavLink} to="/store">Store</Nav.Link>
                         <Nav.Link as={NavLink} to="/about">About</Nav.Link>
+                        <Nav.Link as={NavLink} to="/login">Login</Nav.Link>
                         <Nav.Link as={NavLink} to="/contact">Contact Us</Nav.Link>
                     </Nav>
                     <Button variant="outline-info" onClick={handleCartOpen} style={{ position: 'relative' }}>
