@@ -4,7 +4,7 @@ import { useCart } from '../context/CartContext'; // Import the cart context
 
 const Cart = ({ show, handleClose }) => {
 
-    const { cartItems, removeFromCart } = useCart();
+    const { cartItems =[], removeFromCart } = useCart();
     return (
         <Modal show={show} onHide={handleClose} size="lg">
             <Modal.Header closeButton>
@@ -23,7 +23,7 @@ const Cart = ({ show, handleClose }) => {
                                     <Col md={2}><span>${item.price}</span></Col>
                                     <Col md={2}><span>Qty: {item.quantity}</span></Col>
                                     <Col md={2}>
-                                        <Button variant="danger" onClick={() => removeFromCart(index)}> Remove </Button>
+                                        <Button variant="danger" onClick={() => removeFromCart(index, item._id)}> Remove </Button>
                                     </Col>
                                 </Row>
                             </ListGroup.Item>
