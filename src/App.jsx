@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -10,7 +10,7 @@ import Store from './components/pages/Store';
 import Contact from './components/pages/Contact';
 import ProductDetail from './components/pages/ProductDetail';
 import Login from './components/pages/Login';
-import { AuthContextProvider } from './context/AuthContext';
+import AuthContext from './context/AuthContext';
 
 const products = [
   {
@@ -79,26 +79,24 @@ const products = [
 ];
 
 function App() {
+  const authCtx = useContext(AuthContext);
+  const isLoggedIn = authCtx.isLoggedIn;
   return (
     <CartProvider>
-      <Router>
-        <AuthContextProvider>
-          <div className="App">
-            <ToastContainer />
-            <Routes>
-              <Route path="/" element={<Layout />}>
-                <Route index element={<Store products={products} />} />
-                <Route path="home" element={<Home />} />
-                <Route path="about" element={<About />} />
-                <Route path="login" element={<Login />} />
-                <Route path="store" element={<Store products={products} />} />
-                <Route path="contact" element={<Contact />} />
-                <Route path="/store/:productId" element={<ProductDetail products={products} />} />
-              </Route>
-            </Routes>
-          </div>
-        </AuthContextProvider>
-      </Router>
+      <div className="App">
+        <ToastContainer />
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={isLoggedIn ? <Store products={products} /> : <Navigate to="/login" />} />
+            <Route path="home" element={<Home />} />
+            <Route path="about" element={<About />} />
+            <Route path="login" element={!isLoggedIn ? <Login /> : <Navigate to="/" />} />
+            <Route path="store" element={<Store products={products} />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="/store/:productId" element={isLoggedIn ? <ProductDetail products={products} /> : <Navigate to="/login" />} />
+          </Route>
+        </Routes>
+      </div>
     </CartProvider>
   );
 }
